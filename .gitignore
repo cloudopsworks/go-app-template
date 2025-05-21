@@ -1,5 +1,7 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+##
+# (c) 2024 - Cloud Ops Works LLC - https://cloudops.works/
+#            On GitHub: https://github.com/cloudopsworks
+#            Distributed Under Apache v2.0 License
 #
 # Binaries for programs and plugins
 *.exe
@@ -23,3 +25,22 @@ go.work.sum
 
 # env file
 .env
+# .Mac
+**/.DS_Store
+
+# IntelliJ idea
+.idea/
+*.iml
+
+# Eclipse JDT
+.project
+.settings/
+.classpath
+.factorypath
+
+### VS Code ###
+.vscode/
+
+### Tronador ###
+.tronador
+tronador/

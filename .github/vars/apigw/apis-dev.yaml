@@ -1,0 +1,53 @@
+environment: dev
+apigw_definitions:
+  - name: test
+    version: v2
+    mapping: test-apis/api/2.0
+    domain_name: apigw-dev.sample.com
+    file_name: test
+    stage_variables:  # comment out if not needed
+      - name: api_variable
+        value: api_value
+aws:
+  stage: dev
+  stage_only: false
+  #endpoint_type: REGIONAL
+  #vpc_endpoint_ids:
+  # - vpce-1234567890abcdef0
+  # - vpce-1234567890abcdef1
+  #disable_execute_api_endpoint: false
+  #minimum_compression_size: null
+  #xray_enabled: true
+  #cache_cluster_enabled: true
+  #cache_cluster_size: 0.5
+  vpc_link_name: test-link-dev
+  #log_location: /aws/apigateway
+  #log_retention_days: 30
+  #settings:
+  #  metrics_enabled: true | false
+  #  logging_level: OFF | ERROR | INFO
+  #  data_trace_enabled: true | false
+  #  throttling_burst_limit: -1 | 10000
+  #  throttling_rate_limit: -1 | 5000
+  #  caching_enabled: true | false
+  #  cache_ttl_in_seconds: 300
+  #  cache_data_encrypted: true | false
+  #  require_authorization_for_cache_control: true | false
+  #  unauthorized_cache_control_header_strategy: FAIL_WITH_403 | SUCCEED_WITH_RESPONSE_HEADER | SUCCEED_WITHOUT_RESPONSE_HEADER
+  publish_bucket:
+    enabled: false
+    name: test-apigw-backup
+    prefix_path: test
+  stage_variables:
+    - name: url
+      value: test-api.dev.sample.com
+  authorizers:
+    - name: Lambda-Auth
+      authtype: lambda
+      #result_ttl_seconds: 10
+      #identity_source: method.request.header.Authorization
+      #type: request
+      lambda:
+        function: lambda-auth-dev
+        exec_role: lambda-auth-dev-lambda-exec-role
+tags: {}

@@ -4,6 +4,8 @@
 #            Distributed Under Apache v2.0 License
 #
 # Binaries for programs and plugins
+bin/
+test-results/
 *.exe
 *.exe~
 *.dll

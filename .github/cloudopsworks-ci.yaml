@@ -21,6 +21,7 @@ excludeGlobs:
   - .tronador
   - Makefile
   - apifiles/*
+  - test-results/*
 
 # Repo & CD Configurations
 # Some of them previously managed in OWNERS file

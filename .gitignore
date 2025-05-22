@@ -11,6 +11,7 @@ test-results/
 *.dll
 *.so
 *.dylib
+VERSION
 
 # Test binary, built with `go test -c`
 *.test

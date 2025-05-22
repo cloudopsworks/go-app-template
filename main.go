@@ -13,6 +13,8 @@ func main() {
 		port = "8080"
 	}
 
+	log.Printf("Server version: %s", Version)
+
 	srv, err := server.NewServer(port)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)

@@ -40,12 +40,13 @@ beanstalk:
   #  java8        = "^64bit Amazon Linux 2 (.*) running Corretto 8(.*)$"
   #  java11       = "^64bit Amazon Linux 2 (.*) running Corretto 11(.*)$"
   #  java17       = "^64bit Amazon Linux 2 (.*) running Corretto 17(.*)$"
+  #  tomcat       = "^64bit Amazon Linux 2023 (.*) Tomcat (.*) Corretto 21(.*)$"
   #  java17_23    = "^64bit Amazon Linux 2023 (.*) running Corretto 17(.*)$"
   #  tomcatj8     = "^64bit Amazon Linux 2 (.*) Tomcat (.*) Corretto 8(.*)$"
   #  tomcatj11    = "^64bit Amazon Linux 2 (.*) Tomcat (.*) Corretto 11(.*)$"
   #  tomcatj17    = "^64bit Amazon Linux 2023 (.*) Tomcat (.*) Corretto 17(.*)$"
-  #  tomcatj21    = "^64bit Amazon Linux 2023 (.*) Tomcat (.*) Corretto 21(.*)$"
   #  node         = "^64bit Amazon Linux 2023 (.*) Node.js 20(.*)$"
+  #  node22       = "^64bit Amazon Linux 2023 (.*) Node.js 22(.*)$"
   #  node14       = "^64bit Amazon Linux 2 (.*) Node.js 14(.*)$"
   #  node16       = "^64bit Amazon Linux 2 (.*) Node.js 16(.*)$"
   #  node18       = "^64bit Amazon Linux 2 (.*) Node.js 18(.*)$"
@@ -53,9 +54,13 @@ beanstalk:
   #  go           = "^64bit Amazon Linux 2 (.*) running Go (.*)$"
   #  docker       = "^64bit Amazon Linux 2 (.*) running Docker (.*)$"
   #  docker-m     = "^64bit Amazon Linux 2 (.*) Multi-container Docker (.*)$"
-  #  net-core     = "^64bit Amazon Linux 2 (.*) running .NET Core(.*)$"
-  #  net-6        = "^64bit Amazon Linux 2023 (.*) running .NET 6(.*)$"
-  #  net-8        = "^64bit Amazon Linux 2023 (.*) running .NET 8(.*)$"
+  #  dotnet-core  = "^64bit Amazon Linux 2 (.*) running .NET Core(.*)$"
+  #  dotnet-6     = "^64bit Amazon Linux 2023 (.*) running .NET 6(.*)$"
+  #  dotnet-8     = "^64bit Amazon Linux 2023 (.*) running .NET 8(.*)$"
+  #  dotnet-9     = "^64bit Amazon Linux 2023 (.*) running .NET 9(.*)$"
+  #  dotnet       = "^64bit Amazon Linux 2023 (.*) running .NET 9(.*)$"
+  #  python       = "^64bit Amazon Linux 2023 (.*) running Python 3.13(.*)$"
+  #  python313    = "^64bit Amazon Linux 2023 (.*) running Python 3.13(.*)$"
   #  python312    = "^64bit Amazon Linux 2023 (.*) running Python 3.12(.*)$"
   #  python311    = "^64bit Amazon Linux 2023 (.*) running Python 3.11(.*)$"
   #  python39     = "^64bit Amazon Linux 2023 (.*) running Python 3.9(.*)$"
@@ -64,6 +69,11 @@ beanstalk:
   #  net-core-w16 = "^64bit Windows Server Core 2016 (.*) running IIS (.*)$"
   #  net-core-w19 = "^64bit Windows Server Core 2019 (.*) running IIS (.*)$"
   #  net-core-w22 = "^64bit Windows Server Core 2022 (.*) running IIS (.*)$"
+  #  net-core-w25 = "^64bit Windows Server Core 2025 (.*) running IIS (.*)$"
+  #  dotnet-w16   = "^64bit Windows Server 2016 (.*) running IIS (.*)$"
+  #  dotnet-w19   = "^64bit Windows Server 2019 (.*) running IIS (.*)$"
+  #  dotnet-w22   = "^64bit Windows Server 2022 (.*) running IIS (.*)$"
+  #  dotnet-w25   = "^64bit Windows Server 2025 (.*) running IIS (.*)$"
   # Can specify complete name for certain environments to Stick the stack to a specific version.
   solution_stack: go
   application: APPLICATION
@@ -107,11 +117,14 @@ beanstalk:
     vpc_id: VPC_ID
   ##
   # Optional variable for mapping ports to backend ports:
-  port_mappings: []
-#    - name: default
-#      from_port: 80
-#      to_port: 8081
-#      protocol: HTTP
+  port_mappings:
+    - name: default
+      from_port: 80
+      to_port: 80
+      protocol: HTTP
+      health_check: # for custom target group
+        enabled: true
+        path: "/health"
 #    - name: port443
 #      from_port: 443
 #      to_port: 8443
@@ -136,11 +149,15 @@ beanstalk:
   extra_tags: {}
   #    key: value
   #    key2: value2
-  extra_settings: []
-  #  - name: "PORT"
-  #    namespace: "aws:elasticbeanstalk:application:environment"
-  #    resource: ""
-  #    value: "8080"
+  extra_settings:
+    - name: "PORT"
+      namespace: "aws:elasticbeanstalk:application:environment"
+      resource: ""
+      value: "8080"
+    - name: "Application Healthcheck URL"
+      namespace: "aws:elasticbeanstalk:application"
+      resource: ""
+      value: "/health"
   #    - name: SETTING_NAME
   #      namespace: aws:NAMESPACE
   #      resource: ""

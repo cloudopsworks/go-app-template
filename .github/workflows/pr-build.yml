@@ -38,7 +38,7 @@ jobs:
         uses: cloudopsworks/blueprints/cd/checkout@v5
         with:
           source_ref: ${{ github.head_ref }}
-          blueprint_ref: 'v5'
+          blueprint_ref: 'v5.8'
 
       - name: Pipeline Configuration
         id: config
@@ -79,7 +79,7 @@ jobs:
         uses: cloudopsworks/blueprints/cd/checkout@v5
         with:
           source_ref: ${{ github.head_ref }}
-          blueprint_ref: 'v5'
+          blueprint_ref: 'v5.8'
 
       - name: Pipeline Configuration
         id: config
@@ -112,6 +112,7 @@ jobs:
           golang_arch: ${{ steps.build.outputs.golang_arch }}
           golang_image_variant: ${{ steps.build.outputs.golang_image_variant }}
           environment: ${{ steps.config.outputs.environment }}
+          package_name: ${{ steps.build.outputs.package_name }}
           is_release: ${{ steps.config.outputs.is_release }}
           default_registry_address: ${{ vars.DOCKER_REGISTRY_ADDRESS }}
           project_key: ${{ steps.config.outputs.project_key }}
@@ -155,7 +156,7 @@ jobs:
         uses: cloudopsworks/blueprints/cd/checkout@v5
         with:
           source_ref: ${{ github.head_ref }}
-          blueprint_ref: 'v5'
+          blueprint_ref: 'v5.8'
 
       # Get Pipeline Config
       - name: Get Pipeline Config

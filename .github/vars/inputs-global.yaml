@@ -7,7 +7,7 @@ repository_owner: "REPO_OWNER" # Required
 ## Dist is the OS distribution, arch is the architecture
 ## Image variant should be used for the specific version of OS image to run
 golang:
-  main_file: cmd/server/main.go
+  main_file: .
 #  version: 1.23
 #  dist: linux
 #  arch: amd64

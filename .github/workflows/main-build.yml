@@ -105,6 +105,7 @@ jobs:
           golang_arch: ${{ steps.build.outputs.golang_arch }}
           golang_image_variant: ${{ steps.build.outputs.golang_image_variant }}
           environment: ${{ steps.config.outputs.environment }}
+          package_name: ${{ steps.build.outputs.package_name }}
           is_release: ${{ steps.config.outputs.is_release }}
           default_registry_address: ${{ vars.DOCKER_REGISTRY_ADDRESS }}
           project_key: ${{ steps.config.outputs.project_key }}
@@ -165,7 +166,6 @@ jobs:
           is_pre_release: ${{ needs.code-build.outputs.is_pre_release == 'true' }}
           files_globs: |
             *.zip
-            *.jar
           token: ${{ secrets.BOT_TOKEN }}
 
   scan:

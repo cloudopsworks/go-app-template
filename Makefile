@@ -18,10 +18,17 @@ else
 endif
 
 # Modify pom.xml to change the project name with the $(PROJECT) variable
-## Code Initialization for Node Project
+## Code Initialization for GoLang Project
 code/init: packages/install/gitversion packages/install/gh packages/install/yq
 	$(call assert-set,GITVERSION)
 	$(call assert-set,GH)
 	$(call assert-set,YQ)
 	$(eval $@_OWNER := $(shell $(GH) repo view --json 'name,owner' -q '.owner.login'))
+	rm go.mod
+	@go mod init $(PROJECT)
 	@go mod tidy
+ifeq ($(OS),darwin)
+	@find . -name "*.go" -exec sed -E -i '' "s/hello-service/${PROJECT}/g" {} \;
+else
+	@find . -name "*.go" -exec sed -E -i '' "s/hello-service/${PROJECT}/g" {} \;
+endif

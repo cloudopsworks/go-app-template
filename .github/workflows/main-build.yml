@@ -64,9 +64,9 @@ jobs:
       observability_agent: ${{ steps.config.outputs.observability_agent }}
     steps:
       - name: Checkout w/Blueprint
-        uses: cloudopsworks/blueprints/cd/checkout@v5
+        uses: cloudopsworks/blueprints/cd/checkout@v5.9
         with:
-          blueprint_ref: 'v5.8'
+          blueprint_ref: 'v5.9'
 
       - name: Pipeline Configuration
         id: config
@@ -117,7 +117,7 @@ jobs:
     needs:
       - code-build
     if: |
-      (needs.code-build.outputs.container_enabled == 'true') && 
+      (needs.code-build.outputs.container_enabled == 'true') &&
       (needs.code-build.outputs.deployment_enabled == 'true') &&
       (needs.code-build.outputs.is_library != 'true')
     uses: ./.github/workflows/deploy-container.yml
@@ -146,16 +146,16 @@ jobs:
       - deploy-container
     runs-on: ubuntu-latest
     if: |
-      always() &&
+      (! cancelled()) &&
       (needs.code-build.result == 'success') &&
       (needs.code-build.outputs.is_release == 'true') &&
       (needs.code-build.outputs.has_qualifier != 'true')
     steps:
       - name: Checkout w/Blueprint
-        uses: cloudopsworks/blueprints/cd/checkout@v5
+        uses: cloudopsworks/blueprints/cd/checkout@v5.9
         id: co
         with:
-          blueprint_ref: 'v5.8'
+          blueprint_ref: 'v5.9'
 
       - name: Perform Release
         uses: ./bp/cd/release
@@ -174,7 +174,7 @@ jobs:
       - code-build
       - deploy-container
     if: |
-      always() && 
+      (! cancelled()) && 
       (needs.code-build.result == 'success')
     uses: ./.github/workflows/scan.yml
     with:
@@ -196,7 +196,7 @@ jobs:
       - code-build
       - deploy-container
     if: |
-      always() &&
+      (! cancelled()) &&
       (needs.code-build.result == 'success') &&
       (needs.code-build.outputs.blue_green_enabled != 'true') && 
       (needs.code-build.outputs.deployment_enabled == 'true') && 
@@ -227,7 +227,7 @@ jobs:
       - code-build
       - deploy-container
     if: |
-      always() &&
+      (! cancelled()) &&
       (needs.code-build.result == 'success') &&
       (needs.code-build.outputs.blue_green_enabled == 'true')  && 
       (needs.code-build.outputs.deployment_enabled == 'true') && 

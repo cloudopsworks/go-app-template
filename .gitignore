@@ -48,5 +48,6 @@ go.work.sum
 .vscode/
 
 ### Tronador ###
+.tronador*.mk
 .tronador
 tronador/

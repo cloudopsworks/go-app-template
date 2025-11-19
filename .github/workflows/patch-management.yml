@@ -180,6 +180,7 @@ jobs:
       - name: Checkout w/Blueprint
         uses: cloudopsworks/blueprints/cd/checkout@v5.10
         with:
+          token: ${{ secrets.BOT_TOKEN }}
           blueprint_ref: 'v5.10'
           source_ref: 'develop'
 

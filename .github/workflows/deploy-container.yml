@@ -34,6 +34,18 @@ on:
         required: false
         type: string
         default: ''
+      default_gcp_project:
+        required: false
+        type: string
+        default: ''
+      default_gcp_region:
+        required: false
+        type: string
+        default: ''
+      default_gcp_impersonate_sa:
+        required: false
+        type: string
+        default: ''
       default_registry_address:
         required: false
         type: string
@@ -59,6 +71,9 @@ on:
         required: false
       azure_service_secret:
         description: 'Azure Service Principal Secret'
+        required: false
+      gcp_credentials:
+        description: 'Google Cloud Credentials secrets'
         required: false
 
 jobs:
@@ -87,6 +102,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.aws_secret_access_key }}
           azure_service_id: ${{ secrets.azure_service_id }}
           azure_service_secret: ${{ secrets.azure_service_secret }}
+          gcp_credentials: ${{ secrets.gcp_credentials }}
           default_registry_address: ${{ inputs.default_registry_address }}
           project_key: ${{ inputs.project_key }}
           project_owner: ${{ inputs.project_owner }}

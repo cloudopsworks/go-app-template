@@ -81,7 +81,7 @@ jobs:
           llm_model: ${{ vars.HOSTED_LLM_MODEL }}
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
-      - name: Java Patchwork Workflow
+      - name: GoLang Patchwork Workflow
         uses: ./bp/ci/ai/patchwork/autofix/go
         with:
           #bot_user: ${{ vars.BOT_USER }}
@@ -121,7 +121,7 @@ jobs:
           llm_model: ${{ vars.HOSTED_LLM_MODEL }}
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 
-      - name: Init Patchwork Java
+      - name: Init Patchwork GoLang
         uses: ./bp/ci/ai/patchwork/dependency-upgrade/go
         with:
           #bot_user: ${{ vars.BOT_USER }}

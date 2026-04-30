@@ -59,6 +59,9 @@ golang:
 #isLibrary: true # DEPRECATED!
 #is_library: true
 #
+# Set if this is an OpenSource project, defaults to true
+#is_ooss: true
+#
 # Dockerfile Inline content that will be merged into the Dockerfile
 #docker_inline: |
 #  # Dockerfile content here
@@ -142,8 +145,8 @@ golang:
 #
 ## CD pipeline configuration uncomment and configure accordingly to enable
 # Target Cloud
-cloud: aws | azure | gcp
+cloud: aws | azure | gcp | none
 # Cloud deployment type depends on the target cloud
-cloud_type: beanstalk | eks | lambda | aks | webapp | function | gke | appengine | cloudrun | kubernetes
+cloud_type: beanstalk | eks | lambda | aks | webapp | function | gke | appengine | cloudrun | kubernetes | none
 # Indicate the Runner that will be used for the deployment - usually will be a hosted runner
 # runner_set: "arc-runner-set"

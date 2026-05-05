@@ -111,12 +111,21 @@ Set these values before your first pipeline run:
 Use `cloud: none` and `cloud_type: none` only for repositories that should build/scan without deployment. In that mode, your upstream blueprint configuration must resolve deployment to disabled.
 
 Common optional sections:
-- `golang` — Go version, target OS/arch, image variant, CGO toggle
+- `golang` — Go version, target OS/arch, image variant, CGO toggle, and optional GoReleaser publishing
 - `preview` — PR preview environment behavior
 - `apis` — API Gateway publishing
 - `observability` — tracing/monitoring agent configuration
 - `snyk`, `semgrep`, `trivy`, `sonarqube`, `dependencyTrack` — security/quality tooling
 - `docker_inline`, `docker_args`, `custom_run_command`, `custom_usergroup` — container customization
+
+To enable GoReleaser for tagged releases, add the flag under `golang`:
+
+```yaml
+golang:
+  goreleaser: true
+```
+
+Leave it unset when the repository should only build container/image artifacts. The release workflow keeps GoReleaser disabled by default.
 
 ---
 
@@ -206,6 +215,8 @@ Important workflows in this template:
 - `environment-unlock.yml` / `environment-destroy.yml` — environment operations
 - `automerge.yml`, slash-command workflows, Jira integration workflows — repo automation
 
+When `golang.goreleaser: true` is set, `main-build.yml` also runs an additional GoReleaser publication step during the release job after the standard GitHub release is created. Use that mode only when the generated repository includes a valid GoReleaser configuration and the signing secrets described below.
+
 This template now also includes dedicated GitVersion reference files for both GitFlow and GitHub Flow release models. If your generated repository wants to use one of them directly, wire it explicitly in your generator/build logic rather than assuming automatic selection.
 
 ---
@@ -222,6 +233,12 @@ Typical examples:
 - `BUILD_AZURE_SERVICE_ID` / `BUILD_AZURE_SERVICE_SECRET`
 - `DEPLOYMENT_AZURE_SERVICE_ID` / `DEPLOYMENT_AZURE_SERVICE_SECRET`
 - runner, registry, region, and state configuration variables
+
+If you enable `golang.goreleaser`, also provide:
+- `GPG_PRIVATE_KEY`
+- `GPG_PASSPHRASE`
+
+`GITHUB_TOKEN` is supplied automatically by GitHub Actions and is used by the GoReleaser release step for repository publication.
 
 Review the `with:` and `secrets:` blocks in the workflow files and align your repository settings before enabling deployments.
 

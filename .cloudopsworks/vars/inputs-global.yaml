@@ -13,6 +13,7 @@ golang:
 #  arch: amd64
 #  image_variant: alpine:3.21
 #  disable_cgo: true # uncomment to disable CGO (pure golang build), useful on some cases
+#  goreleaser: true # uncomment to enable goreleaser, the tool is disabled by default
 #
 # Set Snyk processing to true if want to enable, the tool is disabled by default
 #snyk:

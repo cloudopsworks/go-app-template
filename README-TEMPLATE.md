@@ -127,6 +127,13 @@ golang:
 
 Leave it unset when the repository should only build container/image artifacts. The release workflow keeps GoReleaser disabled by default.
 
+> **Required secrets when `goreleaser: true` is set:** The GoReleaser step signs release artifacts using GPG. Before enabling this flag you must add the following secrets at the repository or organization level:
+>
+> - `GPG_PRIVATE_KEY` — armored GPG private key used to sign released artifacts
+> - `GPG_PASSPHRASE` — passphrase for the GPG private key
+>
+> The workflow will fail at the GoReleaser signing step if either secret is absent. It is also recommended to set `cloud_type: none` in `inputs-global.yaml` when using GoReleaser so that no cloud deployment is attempted alongside the release.
+
 ---
 
 ## Choose one deployment target per environment
@@ -234,9 +241,9 @@ Typical examples:
 - `DEPLOYMENT_AZURE_SERVICE_ID` / `DEPLOYMENT_AZURE_SERVICE_SECRET`
 - runner, registry, region, and state configuration variables
 
-If you enable `golang.goreleaser`, also provide:
-- `GPG_PRIVATE_KEY`
-- `GPG_PASSPHRASE`
+If you enable `golang.goreleaser: true`, the following secrets are **required** at the repository or organization level — the workflow will fail without them:
+- `GPG_PRIVATE_KEY` — armored GPG private key for signing release artifacts
+- `GPG_PASSPHRASE` — passphrase for the GPG private key
 
 `GITHUB_TOKEN` is supplied automatically by GitHub Actions and is used by the GoReleaser release step for repository publication.
 

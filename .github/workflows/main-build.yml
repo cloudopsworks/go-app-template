@@ -222,7 +222,8 @@ jobs:
       (needs.code-build.result == 'success') &&
       (needs.code-build.outputs.blue_green_enabled != 'true') && 
       (needs.code-build.outputs.deployment_enabled == 'true') && 
-      (needs.code-build.outputs.is_library != 'true')
+      (needs.code-build.outputs.is_library != 'true') && 
+      (needs.code-build.outputs.golang_goreleaser != 'true')
     uses: ./.github/workflows/deploy.yml
     with:
       deployment_name: ${{ needs.code-build.outputs.deployment_name }}
@@ -257,7 +258,8 @@ jobs:
       (needs.code-build.result == 'success') &&
       (needs.code-build.outputs.blue_green_enabled == 'true')  && 
       (needs.code-build.outputs.deployment_enabled == 'true') && 
-      (needs.code-build.outputs.is_library != 'true')
+      (needs.code-build.outputs.is_library != 'true') && 
+      (needs.code-build.outputs.golang_goreleaser != 'true')
     uses: ./.github/workflows/deploy-blue-green.yml
     with:
       deployment_name: ${{ needs.code-build.outputs.deployment_name }}

@@ -111,12 +111,19 @@ Set these values before your first pipeline run:
 Use `cloud: none` and `cloud_type: none` only for repositories that should build/scan without deployment. In that mode, your upstream blueprint configuration must resolve deployment to disabled.
 
 Common optional sections:
-- `golang` — Go version, target OS/arch, image variant, CGO toggle, and optional GoReleaser publishing
+- `golang` — package name override, Go version, target OS/arch, image variant, CGO toggle, and optional GoReleaser publishing
 - `preview` — PR preview environment behavior
 - `apis` — API Gateway publishing
 - `observability` — tracing/monitoring agent configuration
 - `snyk`, `semgrep`, `trivy`, `sonarqube`, `dependencyTrack` — security/quality tooling
 - `docker_inline`, `docker_args`, `custom_run_command`, `custom_usergroup` — container customization
+
+To override the binary/package name used during build and release (defaults to the `go.mod` module name or repository name), set `package_name` under `golang`:
+
+```yaml
+golang:
+  package_name: my-cli
+```
 
 To enable GoReleaser for tagged releases, add the flag under `golang`:
 

@@ -136,7 +136,7 @@ Leave it unset when the repository should only build container/image artifacts. 
 >
 > **Optional GoReleaser distribution secrets:** If your GoReleaser configuration publishes to Homebrew or Chocolatey, also add:
 >
-> - `HOMEBREW_TAP_TOKEN` — GitHub personal access token with write access to your Homebrew tap repository
+> - `HOMEBREW_TAP_TOKEN` — GitHub personal access token with write access to your Homebrew tap repository. Falls back to `BOT_TOKEN` when absent, so Homebrew tap commits use the bot identity instead of failing.
 > - `CHOCOLATEY_API_KEY` — Chocolatey community repository API key for publishing packages
 >
 > These secrets are passed through to GoReleaser automatically when present. The workflow proceeds without them if the GoReleaser configuration does not reference those publishers.
@@ -253,7 +253,7 @@ If you enable `golang.goreleaser: true`, the following secrets are **required** 
 - `GPG_PASSPHRASE` — passphrase for the GPG private key
 
 The following secrets are **optional** and only needed when your GoReleaser configuration targets those distribution channels:
-- `HOMEBREW_TAP_TOKEN` — GitHub personal access token with write access to your Homebrew tap repository
+- `HOMEBREW_TAP_TOKEN` — GitHub personal access token with write access to your Homebrew tap repository. Falls back to `BOT_TOKEN` when absent.
 - `CHOCOLATEY_API_KEY` — Chocolatey community repository API key for publishing packages
 
 `GITHUB_TOKEN` is supplied automatically by GitHub Actions and is used by the GoReleaser release step for repository publication.

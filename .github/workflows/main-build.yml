@@ -155,7 +155,7 @@ jobs:
     needs:
       - code-build
       - deploy-container
-    runs-on: ubuntu-latest
+    runs-on: ${{ needs.code-build.outputs.runner_set }}
     if: |
       (! cancelled()) &&
       (needs.code-build.result == 'success') &&

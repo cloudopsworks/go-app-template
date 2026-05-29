@@ -206,6 +206,7 @@ jobs:
           apple_store_connect_key_b64: ${{ secrets.APPLE_STORE_CONNECT_KEY_BASE64 }}
           apple_store_connect_key_id: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           apple_store_connect_issuer_id: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+	  
   scan:
     name: 'Code Scan SAST/SCA/DAST'
     needs:

@@ -270,6 +270,25 @@ jobs:
           golang_version: ${{ needs.code-build.outputs.golang_version }}
           chocolatey_api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
 
+  chocolatey_push:
+    name: 'Chocolatey Push - Windows'
+    needs:
+      - code-build
+      - goreleaser_chocolatey
+    if: |
+      (! cancelled()) &&
+      (needs.goreleaser_chocolatey.result == 'success') &&
+      (needs.code-build.outputs.is_release == 'true') &&
+      (needs.code-build.outputs.has_qualifier != 'true') &&
+      (needs.code-build.outputs.golang_goreleaser_chocolatey == 'true')
+    runs-on: windows-latest
+    steps:
+      - name: Checkout w/Blueprint
+        uses: cloudopsworks/blueprints/cd/checkout@v5.10
+        id: co
+        with:
+          blueprint_ref: 'v5.10'
+
       - name: Chocolatey Package Push
         uses: ./bp/cd/release/chocolatey
         with:

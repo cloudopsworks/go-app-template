@@ -122,6 +122,12 @@ golang:
 #apis:
 #  enabled: true
 #
+# Optional additions to the blueprint artifact packaging defaults.
+#zipGlobs:
+#  - "assets/**"
+#excludeGlobs:
+#  - "assets/test-fixtures/**"
+#
 # Observability configuration: if enabled will deploy observability tools to the environment
 #observability:
 #  enabled: true
